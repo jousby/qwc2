@@ -796,7 +796,7 @@ class Map3D extends React.Component {
                     <MapControls3D
                         controlsPosition={this.props.controlsPosition}
                         mouseButtons={this.props.mouseButtons}
-                        onCameraChanged={this.props.onCameraChanged}
+                        onCameraChanged={this.onCameraChanged}
                         onControlsSet={this.setupControls}
                         sceneContext={this.state.sceneContext}
                     >
@@ -821,6 +821,10 @@ class Map3D extends React.Component {
             ) : null
         ];
     }
+    onCameraChanged = () => {
+        this.state.sceneContext.eventDispatcher.dispatchEvent({type: 'cameraChanged'});
+        this.props.onCameraChanged();
+    };
     renderBaseLayer = () => {
         const baseLayer = this.state.sceneContext.baseLayers.find(e => e.visibility === true);
         return !baseLayer ? null : (
